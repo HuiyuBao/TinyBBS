@@ -1,6 +1,5 @@
-我使用的是ApacheHaus，将代码放在Apache的htdocs下，启动Apache服务器应该就可以运行了
-还需要配置一下使得Apache可以用php7.3.0来运行php代码
-还需要启用php7.3.0的mysqli模块
+一个课程大作业
+是一个小论坛，后端php连接mysql实现
 
 
 main.html是首页面，要求登陆或者注册
