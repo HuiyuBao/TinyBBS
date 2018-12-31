@@ -1,0 +1,33 @@
+<html>
+<body>
+<form action="" method="post">
+<?php
+$dbhost = 'localhost:3306';  // mysql服务器主机地址
+$dbuser = 'root';            // mysql用户名
+$dbpass = 'password';          // mysql用户名密码
+$dbdb = 'forum';
+
+$conn = mysqli_connect($dbhost, $dbuser, $dbpass, $dbdb);
+if(! $conn )
+{
+    die('Could not connect: ' . mysqli_error($conn));
+}
+$sql = "select context from post where post_ID=".$_GET["post_ID"];
+$resq = mysqli_query($conn,$sql);
+$row = mysqli_fetch_array($resq,MYSQLI_ASSOC);
+    echo "<textarea name=\"context\" style=\"width:400px; height:200px;\">".$row["context"]."</textarea><br>";
+?>
+    <br><input type="submit" value="Submit" name="submit">
+</form>
+</body>
+</html>
+<?php
+if(isset($_POST["submit"]))
+{
+    $inputc = addslashes($_POST["context"]);
+    $sql2 = "update post set context='".$inputc."' where post_ID=".$_GET["post_ID"];
+    mysqli_query($conn,$sql2);
+    mysqli_close($conn);
+    echo "<meta http-equiv='refresh' content='0.1;url=post.php?post_ID=".$_GET["post_ID"]."'>";
+}
+?>

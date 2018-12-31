@@ -1,0 +1,51 @@
+<!DOCTYPE>
+<html>
+<body>
+<p>
+<a href="query1.php">找出点击/回复前10帖子</a><br><br><br>
+在板块A比板块B发帖多的用户:
+
+<?php
+
+$dbhost = 'localhost:3306';  // mysql服务器主机地址
+$dbuser = 'root';            // mysql用户名
+$dbpass = 'password';          // mysql用户名密码
+$dbdb = 'forum';
+
+$conn = mysqli_connect($dbhost, $dbuser, $dbpass, $dbdb);
+if(! $conn )
+{
+    die('Could not connect: ' . mysqli_error($conn));
+}
+?>
+
+<form action="/query5.php" method="post">
+    <label>板块A：</label>
+       <select name="secA">
+          <?php
+            $sql = "select * from section";
+            $revl = mysqli_query($conn,$sql);
+
+            while($row = mysqli_fetch_array($revl,MYSQLI_ASSOC))
+            {
+                 echo "<option value=".$row["section_ID"].">".$row["name"]."</option>";
+            }
+          ?>
+       </select>
+    &nbsp &nbsp
+    <label>板块B：</label>
+        <select name="secB">
+              <?php
+                $sql = "select * from section";
+                $revl = mysqli_query($conn,$sql);
+                
+                while($row = mysqli_fetch_array($revl,MYSQLI_ASSOC))
+                {
+                     echo "<option value=".$row["section_ID"].">".$row["name"]."</option>";
+                }
+              ?>
+        </select><br><br>
+    <input type="submit" value="Submit">
+</form>
+</body>
+</html>

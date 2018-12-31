@@ -1,0 +1,43 @@
+<!DOCTYPE>
+<html>
+<head>
+<meta charset="UTF-8"/>
+</head>
+<body>
+<form action="/userinfo.php" method="get">
+      <input type="text" name="user_ID" value="">
+      <input type="submit" value="搜索用户">
+</form>
+<h2>Welcome !</h2>
+<?php
+$user_ID = $_COOKIE["user_ID"];
+echo '<a href="userinfo.php?user_ID='.$user_ID.'">我的信息</a>';
+?>
+<h4>List of section:</h4>
+<ul>
+<?php
+
+$dbhost = 'localhost:3306';  // mysql服务器主机地址
+$dbuser = 'root';            // mysql用户名
+$dbpass = 'password';          // mysql用户名密码
+$dbdb = 'forum';
+
+$conn = mysqli_connect($dbhost, $dbuser, $dbpass, $dbdb);
+if(! $conn )
+{
+    die('Could not connect: ' . mysqli_error($conn));
+}
+$sql = "select * from section";
+$revl = mysqli_query($conn,$sql);
+
+while($row = mysqli_fetch_array($revl,MYSQLI_ASSOC))
+{
+    echo "<li><a href=\"section.php?section_ID=".$row["section_ID"]."\">".$row["name"]."</a></li>";
+}
+mysqli_close($conn);
+?>
+</ul>
+<br><br>
+<p><a href="query.html">查询页面</a></p>
+</body>
+</html>
